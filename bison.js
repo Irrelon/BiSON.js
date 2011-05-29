@@ -29,6 +29,14 @@
 
     var enc = '';
     function _encode(data, top) {
+		
+		// Check if the number is too high for BiSON to convert
+		if (typeof data === 'number' && data >= 2147483648) {
+			/* The number is too high so convert to string and mark it
+			so we can convert it back again later */
+			data = '¬' + String(data);
+		}
+		
         if (typeof data === 'number') {
 
             // Floats
@@ -228,8 +236,22 @@
                     p++;
                 }
                 e += data.charCodeAt(p++);
-                f instanceof Array ? f.push(data.substr(p, e))
-                                   : f[key] = data.substr(p, e);
+				
+				var tmpData = data.substr(p, e);
+				
+				// Convert back to number if was too big
+				if (tmpData.substr(0, 1) == '¬') {
+					// Convert the string to a number, leaving off the marker we placed earlier
+					var tmpDec = Number(tmpData.substr(1, tmpData.length - 1));
+					// Check if the returned value is a number
+					if (!isNaN(tmpDec)) {
+						// The value is a number so set the data to the number value
+						tmpData = tmpDec;
+					}
+				}
+				
+                f instanceof Array ? f.push(tmpData)
+                                   : f[key] = tmpData;
 
                 p += e;
                 set = true;
@@ -249,4 +271,3 @@
         };
     }
 })();
-
