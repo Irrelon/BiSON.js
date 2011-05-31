@@ -35,3 +35,6 @@ native JSON and **just as fast** as JSON in Firefox 4 Beta.
 For more detailed results visit the 
 [JSPerf Benchmark](http://jsperf.com/bison/6).
 
+### Large number support - added by Irrelon Software Limited
+
+Added a check in the encode and decode methods that will convert large numbers into strings with a specific marker character that allows the decode method to determine if the string being decoded was originally a large number, then converts it back. This is transparent to the calling script so large numbers "just work". -- Rob Evans, CEO & Lead Developer, Irrelon Software Limited
