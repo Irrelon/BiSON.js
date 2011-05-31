@@ -15,7 +15,7 @@ therefore it is not 100% compatible with JSON.
 ### Valid BiSON
 
 - **true**, **false**, **null**
-- Any Number between **-2147483647.99** and **2147483647.99** (inclusive) 
+- Any Number between **-2147483647.99** and **2147483647.99** (inclusive) -- See large number support below for updated info.
 
 > **Note:** Floats are rounded to 2 decimal places
 
